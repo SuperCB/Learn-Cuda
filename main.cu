@@ -1,9 +1,11 @@
 
 #include <cuda_runtime.h>
+#include <cublas_v2.h>
 #include "cuda.h"
 #include <cstdlib>
 #include <cstdio>
 #include <device_launch_parameters.h>
+
 #define BLOCK_SIZE 16
 
 // Matrices are stored in row-major order:
@@ -171,10 +173,10 @@ __global__ void MatMulKernel(Matrix A, Matrix B, Matrix C) {
     SetElement(Csub, row, col, Cvalue);
 }
 
-void cpuMul(Matrix *A,Matrix* B,Matrix*C )
-{
+void cpuMul(Matrix *A, Matrix *B, Matrix *C) {
 
 }
+
 int main() {
 
     int len = 1024;
@@ -192,9 +194,8 @@ int main() {
     C.elements = new float[len * len];
     for (int i = 0; i < 1024; i++)
         for (int j = 0; j < 1024; j++) {
-            A.elements[i * len + j] = B.elements[i * len + j] = C.elements[i * len + j] = (float) (rand()%100);
+            A.elements[i * len + j] = B.elements[i * len + j] = C.elements[i * len + j] = (float) (rand() % 100);
         }
-
 
 
     cudaEvent_t startTime, endTime;
@@ -214,13 +215,12 @@ int main() {
     printf("%f ms\n", time);
     for (int i = 0; i < 1024; i++)
         for (int j = 0; j < 1024; j++) {
-            float t=0.0;
-            for(int k=0;k<1024;k++)
-            {
-                t+=A.elements[i*len+k]*B.elements[k*len+j];
+            float t = 0.0;
+            for (int k = 0; k < 1024; k++) {
+                t += A.elements[i * len + k] * B.elements[k * len + j];
             }
 
-                printf("%f %f\n",t,C.elements[i * len + j]);
+            printf("%f %f\n", t, C.elements[i * len + j]);
         }
 
 
