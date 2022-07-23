@@ -1,4 +1,0 @@
-/snap/clion/184/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "Unix Makefiles" -DCMAKE_CUDA_HOST_COMPILER=/usr/local/cuda-11.6/bin/nvcc /home/supercb/mycode/CppProjects/learn_cuda
--- Configuring done
--- Generating done
--- Build files have been written to: /home/supercb/mycode/CppProjects/learn_cuda/cmake-build-debug
